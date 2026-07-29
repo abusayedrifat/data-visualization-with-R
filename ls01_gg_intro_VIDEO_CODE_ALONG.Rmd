@@ -204,7 +204,7 @@ We will use **incremental composition**: adding elements to a plot incrementally
 
 ```{r}
 # Call the `ggplot()` function
-
+ggplot()
 ```
 
 • Results a blank canvas
@@ -217,7 +217,7 @@ Supply the data frame to `ggplot()` with the `data` argument.
 
 ```{r}
 # Provide data frame with `data = DF_NAME`
-ggplot() 
+ggplot(data = nigerm96) 
 ```
 
 • The plot is still blank
@@ -238,7 +238,8 @@ Tell `ggplot()` which x and y-axis variables to to plot my adding a `mapping` ar
 
 ```{r}
 # Define variables with `mapping = aes(x = VAR1, y = VAR2)`:
-ggplot(data = nigerm96)
+ggplot(data = nigerm96,
+       mapping = aes(x = week, y = cases))
 ```
 
 • Axes have scales, titles, and labels
@@ -253,7 +254,8 @@ ggplot(data = nigerm96)
 # Specify plot type with `+ geom_point()` for scatter plot
 ggplot(data = nigerm96, 
        mapping = aes(x = week,
-                     y = cases))
+                     y = cases))+
+  geom_point()
 ```
 
 Now we have a complete plot!
@@ -291,7 +293,11 @@ Using the `nigerm04` data frame, write `ggplot` code that will create a scatter 
 ```{r}
 # When you think you have the right answer, submit it by replacing "YOUR ANSWER HERE" with your code, and run those lines.
 
-nigerm04_scatter <- ggplot()
+nigerm04_scatter <- ggplot( data = nigerm04,
+                            aes(x = week, y=cases))+
+  geom_point()
+
+nigerm04_scatter
 
 # Make sure that "nigerm04_scatter" appears in your Environment tab.
 ```
@@ -340,7 +346,7 @@ ggplot(data = nigerm96,
 ```{r}
 # Change x-axis mapping 
 ggplot(data = nigerm96, 
-       mapping = aes(x = week, 
+       mapping = aes(x = region, 
                      y = cases)) +
   geom_point()
 ```
@@ -363,9 +369,8 @@ If we change the `geom_*` function of the original scatter plot from `geom_point
 # Declare that we want a bar plot
 
 ggplot(data = nigerm96, 
-       mapping = aes(x = week, 
-                     y = cases)) +
-  geom_point()
+       aes(x = week, y = cases)) +
+  geom_col()
 ```
 
 • We only changed the the `geom_*` function but data is presented in a completely different way
@@ -390,7 +395,11 @@ This is because a histogram shows the distribution of one numerical variable. `g
 
 ```{r}
 # Write code to create your plot:
+nigerm04_bar <- ggplot( data = nigerm04,
+                        mapping = aes( y=cases, x=week))+
+  geom_col()
 
+nigerm04_bar
 ```
 
 ```{r}
@@ -440,7 +449,8 @@ Let's add **color** to our scatter plot.
 # Use a different color for each region 
 ggplot(data = nigerm96, 
        mapping = aes(x = week, 
-                     y = cases)) +
+                     y = cases,
+                     color = region)) +
   geom_point()
 ```
 
@@ -470,7 +480,7 @@ ggplot(data = nigerm96,
        mapping = aes(x = week, 
                      y = cases,
                      color = region)) +
-  geom_point()
+  geom_col()
 ```
 
 • The `color` aesthetic changes only the **border** around a shape
@@ -497,7 +507,12 @@ ggplot(data = nigerm96,
 
 ```{r}
 # Write code to create your plot:
-
+nigerm04_line <- ggplot(data = nigerm04,
+         mapping = aes(x = week, 
+                       y = cases,
+                       colour = region))+
+    geom_line()
+nigerm04_line
 ```
 
 ```{r}
@@ -528,7 +543,8 @@ Let's add **`color`** as a **fixed aesthetic** to our original scatter plot and 
 # Set color to a fixed value with `geom_point(color = "COLOR_NAME")`
 ggplot(data = nigerm96, 
        mapping = aes(x = week, 
-                     y = cases)) +
+                     y = cases,
+                     color = "blue")) +
   geom_point()       
 ```
 
@@ -580,8 +596,14 @@ Now it's your turn practice using **`fill`** as a fixed aesthetic to change the 
 
 ```{r}
 # Submit your answer:
-nigerm04_pinkbar <- "YOUR ANSWER HERE"
+nigerm04_pinkbar <- ggplot(data = nigerm04 ,
+                           mapping = aes(x = week,
+                                         y = cases,
+                                         fill = "hotpink"))+ 
+                             geom_col()
+ 
 
+nigerm04_pinkbar
 # Ask for a hint:
 # .HINT_nigerm04_pinkbar()
 
